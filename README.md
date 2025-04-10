@@ -1,11 +1,34 @@
 
+# Modify in local
 
+## Setup in mac M4
+
+### Install neo4j
+```shell
+brew install neo4j
+wget https://github.com/neo4j/apoc/releases/download/2025.03.0/apoc-2025.03.0-core.jar
+
+cp apoc-2025.03.0-core.jar /opt/homebrew/Cellar/neo4j/2025.03.0/libexec/plugins
+cat <<EOF | sudo tee -a /opt/homebrew/Cellar/neo4j/2025.03.0/libexec/conf/neo4j.conf
+dbms.security.procedures.unrestricted=apoc.*
+dbms.security.procedures.allowlist=apoc.*
+EOF
+
+neo4j console
+```
+
+### Start Ollama
+
+```shell
+ollama serve
+```
+
+### Start test app
 
 ```shell
 pip install -r requirements.txt
 cd src
 streamlit run app.py
-
 ```
 
 for debug in vscode: 
