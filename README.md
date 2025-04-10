@@ -1,3 +1,39 @@
+
+
+
+```shell
+pip install -r requirements.txt
+cd src
+streamlit run app.py
+
+```
+
+for debug in vscode: 
+
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: streamlit",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "streamlit",
+            "args": [
+                "run",
+                "app.py"
+            ],
+            "cwd": "/path/to/Memary/src",
+            "env": {
+                "PYTHONPATH": "/path/to/envs/memary/bin/python"
+            }
+        },
+        
+    ]
+}
+```
+
+
 <p align="center">
   <img alt="memary_logo" src="diagrams/memary-logo-latest.png">
 </p>
