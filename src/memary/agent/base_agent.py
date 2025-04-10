@@ -76,7 +76,7 @@ class Agent(object):
         self.query_llm = Perplexity(
             api_key=pplx_api_key, model="mistral-7b-instruct", temperature=0.5
         )
-        self.gmaps = googlemaps.Client(key=googlemaps_api_key)
+        # self.gmaps = googlemaps.Client(key=googlemaps_api_key)
         Settings.llm = self.llm
         Settings.chunk_size = 512
         
@@ -155,7 +155,7 @@ class Agent(object):
             )
         else:
             try:
-                self.mm_model = OllamaMultiModal(model=vision_model_name)
+                self.mm_model = OllamaMultiModal(model=vision_model_name, request_timeout=10)
             except:
                 raise ("Please provide a proper vision_model_name.")
 

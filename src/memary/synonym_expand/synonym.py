@@ -1,4 +1,4 @@
-from langchain_openai import OpenAI
+from langchain_openai import OpenAI, ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from typing import List
@@ -8,7 +8,15 @@ from dotenv import load_dotenv
 
 def custom_synonym_expand_fn(keywords: str) -> List[str]:
     load_dotenv()
-    llm = OpenAI(openai_api_key=os.getenv("OPENAI_KEY"), temperature=0)
+    # llm = OpenAI(base_url=os.getenv("OPENAI_BASE_URL"), openai_api_key=os.getenv("OPENAI_KEY"), temperature=0, model_name=os.getenv("OPENAI_MODEL"))
+    llm = ChatOpenAI(
+        base_url=os.getenv("OPENAI_BASE_URL"),  # Ollama 的 OpenAI 兼容接口
+        api_key="ollama",  # Ollama 不验证 API Key，可填任意值
+        model=os.getenv("OPENAI_MODEL"),    # 本地模型名称（通过 `ollama list` 查看）
+        temperature=0,
+        max_tokens=os.getenv("OPENAI_MAX_TOKENS")
+    )
+
     parser = JsonOutputParser(pydantic_object=Output)
 
     template = """
@@ -33,12 +41,12 @@ def custom_synonym_expand_fn(keywords: str) -> List[str]:
 
     chain = prompt | llm | parser
     result = chain.invoke({"keywords": keywords})
-
+    print(f"result={result}")
     l = []
     for category in result:
         for synonym in result[category]:
             l.append(synonym.capitalize())
-
+    
     return l
 
 # testing
