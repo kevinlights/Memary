@@ -146,7 +146,6 @@ selected_llm_model = st.selectbox(
     (model for model in llm_models),
     index=0,
     placeholder="Select LLM Model...",
-    
 )
 selected_vision_model = st.selectbox(
     "Select a vision model to use.",
@@ -155,8 +154,22 @@ selected_vision_model = st.selectbox(
     placeholder="Select Vision Model...",
 )
 
+selected_syn_model = st.selectbox(
+    "Select an LLM model to expand synonym.",
+    (model for model in llm_models),
+    index=0,
+    placeholder="Select LLM Model...",
+)
+
+max_tokens = st.text_input("Max Tokens", value=128000)
+
+os.environ['OPENAI_MODEL'] = selected_syn_model
+os.environ['OPENAI_MAX_TOKENS'] = max_tokens
+os.environ['OPENAI_BASE_URL'] = "http://127.0.0.1:11434/v1"
+
 st.text(f'selected_llm_model: {selected_llm_model}')
 st.text(f'selected_vision_model: {selected_vision_model}')
+st.text(f'selected_syn_model: {selected_syn_model}')
 
 print(f'selected_llm_model={selected_llm_model}')
 print(f'selected_vision_model={selected_vision_model}')

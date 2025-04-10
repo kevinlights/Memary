@@ -17,6 +17,12 @@ EOF
 neo4j console
 ```
 
+### Install 
+
+```shell
+docker run -p 6379:6379 -p 3000:3000 -it --rm falkordb/falkordb:latest
+```
+
 ### Start Ollama
 
 ```shell
