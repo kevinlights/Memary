@@ -102,6 +102,9 @@ def get_models(llm_models, vision_models):
         if "llava:7b" in models:
             vision_models.append("llava:7b")
             models.remove("llava:7b")
+        if "gemma3:4b" in models:
+            vision_models.append("gemma3:4b")
+            models.remove("gemma3:4b")
         llm_models.extend(list(models))
     except:
         print("No Ollama instance detected.")
@@ -294,3 +297,5 @@ if selected_llm_model and selected_vision_model:
             df_top = pd.DataFrame(top_entities)
             st.write("Top 20 Entities")
             st.dataframe(df_top)
+
+print("Done.")

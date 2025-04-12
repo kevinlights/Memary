@@ -155,7 +155,7 @@ class Agent(object):
             )
         else:
             try:
-                self.mm_model = OllamaMultiModal(model=vision_model_name, request_timeout=10)
+                self.mm_model = OllamaMultiModal(model=vision_model_name, request_timeout=120.0)
             except:
                 raise ("Please provide a proper vision_model_name.")
 
@@ -198,6 +198,8 @@ class Agent(object):
         with open(query_image_path, "wb") as f:
             f.write(data)
         image_documents = SimpleDirectoryReader(query_image_dir_path).load_data()
+
+        print(f"vision call: {query}")
 
         response = self.mm_model.complete(prompt=query, image_documents=image_documents)
 

@@ -27,11 +27,16 @@ def custom_synonym_expand_fn(keywords: str) -> List[str]:
     - a synonym for Austin may be Austin texas
     - a synonym for Taylor swift may be Taylor 
     - a synonym for Winter park may be Winter park resort
+    - a synonym for 小明 may be 小明
     
     Format: {format_instructions}
 
     Text: {keywords}
+
+    **注意**: 请严格按照输出格式给出结果，并且不要将原始文本翻译成其他语言
     """
+
+    # **Note**: please use the format strictly, do NOT translate original language
 
     prompt = PromptTemplate(
         template=template,

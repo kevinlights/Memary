@@ -58,6 +58,7 @@ class EntityKnowledgeStore(BaseMemory):
             knowledge_memory (list): list of KnowledgeMemoryItem
         """
         for item in knowledge_memory:
+            # check existing memory and update existing entity with input
             for i, entity in enumerate(self.knowledge_memory):
                 if entity.entity == item.entity:
                     self.knowledge_memory[i].date = item.date
@@ -77,9 +78,11 @@ class EntityKnowledgeStore(BaseMemory):
 
         entities = set([item.entity for item in memory_stream])
         for entity in entities:
+            # get date of all items for same entity
             memory_dates = [
                 item.date for item in memory_stream if item.entity == entity
             ]
+            # count items and get latest entity
             knowledge_memory.append(
                 KnowledgeMemoryItem(entity, len(memory_dates),
                                     max(memory_dates)))
